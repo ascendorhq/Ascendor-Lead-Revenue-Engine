@@ -4,6 +4,7 @@ Ascendor API routes.
 """
 
 from flask import Blueprint, request
+from app.services.lead_service import LeadService
 
 api = Blueprint("api", __name__)
 
@@ -20,7 +21,8 @@ def health_check():
 
 @api.route("/api/v1/leads", methods=["POST"])
 def create_lead():
-    """Receive a new lead submission."""
+    """Receive and validate a new lead."""
+
     lead_data = request.get_json(silent=True)
 
     if not isinstance(lead_data, dict):
@@ -29,7 +31,19 @@ def create_lead():
             "message": "Invalid JSON request body",
         }, 400
 
+    valid, message = LeadService.validate_lead(lead_data)
+
+    if not valid:
+        return {
+            "success": False,
+            "message": message,
+        }, 400
+
+    lead_data["email"] = LeadService.normalize_email(
+        lead_data["email"]
+    )
+
     return {
         "success": False,
-        "message": "Lead processing is not implemented yet",
+        "message": "Validation successful. Database persistence not implemented yet.",
     }, 501
