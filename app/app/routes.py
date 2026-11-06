@@ -3,7 +3,10 @@
 Ascendor API routes.
 """
 
+import logging
+
 from flask import Blueprint, request
+from psycopg import Error as PsycopgError
 from psycopg.errors import UniqueViolation
 
 from app.services.lead_service import LeadService
@@ -11,6 +14,8 @@ from app.repositories.lead_repository import LeadRepository
 
 
 api = Blueprint("api", __name__)
+
+logger = logging.getLogger(__name__)
 
 
 @api.route("/health", methods=["GET"])
@@ -67,3 +72,11 @@ def create_lead():
             "success": False,
             "message": "A lead with this email already exists",
         }, 409
+
+    except PsycopgError:
+        logger.exception("Database error while creating lead")
+
+        return {
+            "success": False,
+            "message": "Database operation failed",
+        }, 500
