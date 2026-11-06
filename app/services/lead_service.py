@@ -1,21 +1,28 @@
 
 """
 Ascendor Lead Processing Service.
-
-This module will contain the business logic
-for processing and managing leads.
 """
-
 
 class LeadService:
     """Handle lead processing operations."""
 
-    def __init__(self):
-        pass
+    @staticmethod
+    def validate_lead(lead_data):
+        """Validate required lead information."""
 
-    def process_lead(self, lead_data):
-        """Process an incoming lead."""
-        # Lead processing logic will be implemented later.
-        raise NotImplementedError(
-            "Lead processing is not implemented yet."
-        )
+        if not isinstance(lead_data, dict):
+            return False, "Invalid lead data"
+
+        name = lead_data.get("name")
+        email = lead_data.get("email")
+
+        if not isinstance(name, str) or not name.strip():
+            return False, "Name is required"
+
+        if not isinstance(email, str) or not email.strip():
+            return False, "Email is required"
+
+        if "@" not in email:
+            return False, "Invalid email address"
+
+        return True, "Lead data is valid"
