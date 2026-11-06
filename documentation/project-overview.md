@@ -1,22 +1,20 @@
-Ascendor Project Overview
 
-1. Project Identity
+# Ascendor Project Overview
 
-Project Name: Ascendor — AI Lead-to-Revenue Automation Engine
+## 1. Project Identity
 
-Organization: Ascendor
+- **Project Name:** Ascendor — AI Lead-to-Revenue Automation Engine
+- **Organization:** Ascendor
+- **Project Type:** Business Automation Platform
+- **Development Stage:** MVP Planning and Foundation
 
-Project Type: Business Automation Platform
-
-Development Stage: MVP Planning and Foundation
-
-2. Purpose
+## 2. Purpose
 
 Ascendor is designed to help businesses automate their lead management and sales follow-up processes.
 
 The system aims to reduce manual administrative work, improve lead organization, and help businesses respond to potential customers more consistently.
 
-3. Problem Statement
+## 3. Problem Statement
 
 Businesses may experience operational problems such as:
 
@@ -29,7 +27,7 @@ Businesses may experience operational problems such as:
 
 These problems can reduce operational efficiency and cause valuable opportunities to be missed.
 
-4. Proposed Solution
+## 4. Proposed Solution
 
 Ascendor will develop an automation system that:
 
@@ -44,15 +42,15 @@ Ascendor will develop an automation system that:
 9. Tracks workflow execution and errors.
 10. Provides reporting capabilities.
 
-5. Initial MVP Scope
+## 5. Initial MVP Scope
 
 The initial MVP will focus on one reliable business process:
 
-Lead Submission → Validation → Database Storage → Response → Logging
+**Lead Submission → Validation → Database Storage → Response → Logging**
 
 The MVP will establish the technical foundation before advanced AI, CRM, and reporting features are introduced.
 
-6. Technology Direction
+## 6. Technology Direction
 
 - n8n for workflow automation
 - PostgreSQL for persistent data storage
@@ -62,7 +60,7 @@ The MVP will establish the technical foundation before advanced AI, CRM, and rep
 - Python for programming foundations
 - Cloud infrastructure for future deployment
 
-7. Engineering Priorities
+## 7. Engineering Priorities
 
 - Reliability
 - Security
@@ -73,7 +71,7 @@ The MVP will establish the technical foundation before advanced AI, CRM, and rep
 - Scalability
 - Operational visibility
 
-8. Development Philosophy
+## 8. Development Philosophy
 
 Ascendor will be developed incrementally.
 
@@ -81,16 +79,13 @@ Each milestone should introduce a measurable capability, supported by documentat
 
 The system will prioritize reliable foundations before advanced functionality.
 
-9. Current Status
+## 9. Current Status
 
-Repository established.
+- Repository established
+- README documented
+- Engineering documentation in progress
+- MVP implementation has not yet begun
 
-README documented.
+---
 
-Engineering documentation in progress.
-
-MVP implementation has not yet begun.
-
-
-Ascendor — RISE BEYOND.
-
+**Ascendor — RISE BEYOND.**
