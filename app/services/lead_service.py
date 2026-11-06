@@ -26,3 +26,13 @@ class LeadService:
             return False, "Invalid email address"
 
         return True, "Lead data is valid"
+
+
+    @staticmethod
+    def normalize_email(email):
+        """Normalize an email address."""
+        if not isinstance(email, str):
+            return None
+
+        return email.strip().lower()
+
