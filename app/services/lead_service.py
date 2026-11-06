@@ -3,6 +3,8 @@
 Ascendor Lead Processing Service.
 """
 
+import re
+
 class LeadService:
     """Handle lead processing operations."""
 
@@ -22,7 +24,7 @@ class LeadService:
         if not isinstance(email, str) or not email.strip():
             return False, "Email is required"
 
-        if "@" not in email:
+        if not re.match(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", email.strip()):
             return False, "Invalid email address"
 
         return True, "Lead data is valid"
