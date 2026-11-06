@@ -1,16 +1,15 @@
 
-
-Ascendor — AI Lead-to-Revenue Automation Engine
+# Ascendor — AI Lead-to-Revenue Automation Engine
 
 > Intelligent business automation designed to capture, qualify, organize, and follow up with leads.
 
-Project Overview
+## Project Overview
 
 Ascendor Lead-to-Revenue Automation Engine is a business automation platform designed to help businesses improve lead management, automate repetitive sales processes, and reduce missed opportunities.
 
 The project is being developed using n8n, PostgreSQL, Docker, and cloud infrastructure.
 
-Business Problem
+## Business Problem
 
 Businesses frequently lose valuable opportunities because of:
 
@@ -21,7 +20,7 @@ Businesses frequently lose valuable opportunities because of:
 - Poor visibility into sales pipelines
 - Repetitive administrative work
 
-Project Objectives
+## Project Objectives
 
 - Automate lead capture and processing
 - Maintain structured and reliable lead records
@@ -31,7 +30,7 @@ Project Objectives
 - Build a scalable, secure, and maintainable system
 - Develop production-ready cloud engineering practices
 
-Planned Core Features
+## Planned Core Features
 
 - Lead intake through webhooks and forms
 - Lead validation and data normalization
@@ -49,10 +48,10 @@ Planned Core Features
 
 > Features are planned and will be implemented incrementally.
 
-Technology Stack
+## Technology Stack
 
 | Technology | Purpose |
-
+|---|---|
 | n8n | Workflow automation |
 | PostgreSQL | Database and persistent storage |
 | Docker | Containerization |
@@ -62,9 +61,10 @@ Technology Stack
 | AWS | Cloud infrastructure (planned) |
 | Terraform | Infrastructure as Code (planned) |
 
-Development Roadmap
+## Development Roadmap
 
-Phase 1 — MVP
+### Phase 1 — MVP
+
 - Project foundation
 - System architecture
 - Database design
@@ -74,20 +74,23 @@ Phase 1 — MVP
 - Basic error handling
 - Testing and documentation
 
-Phase 2 — Starter Version
+### Phase 2 — Starter Version
+
 - CRM integration
 - Basic lead notifications
 - Automated follow-ups
 - Initial deployment
 
-Phase 3 — Premium Version
+### Phase 3 — Premium Version
+
 - AI qualification
 - Lead scoring
 - Appointment scheduling
 - Advanced workflows
 - Reporting dashboard
 
-Phase 4 — Enterprise Version
+### Phase 4 — Enterprise Version
+
 - Advanced integrations
 - Improved scalability
 - Security enhancements
@@ -95,7 +98,7 @@ Phase 4 — Enterprise Version
 - Infrastructure automation
 - Production reliability improvements
 
-Engineering Principles
+## Engineering Principles
 
 - Security-first development
 - Reliable data persistence
@@ -106,13 +109,12 @@ Engineering Principles
 - Testing before deployment
 - Continuous improvement
 
-Project Status
+## Project Status
 
-Current Stage:Project Foundation
+- **Current Stage:** Project Foundation
+- **Development Status:** Planning and documentation
 
-Development Status:Planning and documentation
-
-Disclaimer
+## Disclaimer
 
 This project is under active development. Planned features are not necessarily implemented or production-ready.
 
@@ -120,4 +122,4 @@ This project is under active development. Planned features are not necessarily i
 
 Built by Ascendor.
 
-RISE BEYOND.
+**RISE BEYOND.**
