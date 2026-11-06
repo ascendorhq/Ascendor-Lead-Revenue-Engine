@@ -1,10 +1,26 @@
 
+
 """
 Ascendor PostgreSQL database connection module.
-
-This module will manage database connections
-for the Ascendor application.
 """
 
-# PostgreSQL connection logic will be implemented
-# when the local development environment is ready.
+import os
+
+import psycopg
+from psycopg.rows import dict_row
+
+
+def get_connection():
+    """Create and return a PostgreSQL database connection."""
+
+    database_url = os.getenv("DATABASE_URL")
+
+    if not database_url:
+        raise RuntimeError(
+            "DATABASE_URL environment variable is not configured."
+        )
+
+    return psycopg.connect(
+        database_url,
+        row_factory=dict_row,
+    )
