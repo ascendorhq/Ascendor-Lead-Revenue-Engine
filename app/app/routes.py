@@ -4,7 +4,11 @@ Ascendor API routes.
 """
 
 from flask import Blueprint, request
+from psycopg.errors import UniqueViolation
+
 from app.services.lead_service import LeadService
+from app.repositories.lead_repository import LeadRepository
+
 
 api = Blueprint("api", __name__)
 
@@ -12,6 +16,7 @@ api = Blueprint("api", __name__)
 @api.route("/health", methods=["GET"])
 def health_check():
     """Check whether the API is responding."""
+
     return {
         "service": "Ascendor Lead-to-Revenue Engine",
         "status": "healthy",
@@ -21,7 +26,7 @@ def health_check():
 
 @api.route("/api/v1/leads", methods=["POST"])
 def create_lead():
-    """Receive and validate a new lead."""
+    """Receive, validate, and save a new lead."""
 
     lead_data = request.get_json(silent=True)
 
@@ -43,7 +48,22 @@ def create_lead():
         lead_data["email"]
     )
 
-    return {
-        "success": False,
-        "message": "Validation successful. Database persistence not implemented yet.",
-    }, 501
+    try:
+        lead = LeadRepository.create_lead(lead_data)
+
+        return {
+            "success": True,
+            "message": "Lead created successfully",
+            "lead": {
+                "id": str(lead["id"]),
+                "name": lead["name"],
+                "email": lead["email"],
+                "created_at": lead["created_at"].isoformat(),
+            },
+        }, 201
+
+    except UniqueViolation:
+        return {
+            "success": False,
+            "message": "A lead with this email already exists",
+        }, 409
