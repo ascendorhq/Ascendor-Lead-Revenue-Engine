@@ -1,11 +1,9 @@
 
 """
 Ascendor API routes.
-
-This module will define the application's API endpoints.
 """
 
-from flask import Blueprint
+from flask import Blueprint, request
 
 api = Blueprint("api", __name__)
 
@@ -18,3 +16,20 @@ def health_check():
         "status": "healthy",
         "version": "0.1.0",
     }, 200
+
+
+@api.route("/api/v1/leads", methods=["POST"])
+def create_lead():
+    """Receive a new lead submission."""
+    lead_data = request.get_json(silent=True)
+
+    if not isinstance(lead_data, dict):
+        return {
+            "success": False,
+            "message": "Invalid JSON request body",
+        }, 400
+
+    return {
+        "success": False,
+        "message": "Lead processing is not implemented yet",
+    }, 501
