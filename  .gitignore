@@ -1,0 +1,31 @@
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.venv/
+venv/
+.envrc
+
+# Node.js
+node_modules/
+
+# Logs
+*.log
+logs/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.bak
