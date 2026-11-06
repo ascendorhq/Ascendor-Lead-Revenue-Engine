@@ -1,6 +1,6 @@
 
 """
-Ascendor LeadService unit tests.
+Tests for Ascendor Lead Processing Service.
 """
 
 import unittest
@@ -9,10 +9,11 @@ from app.services.lead_service import LeadService
 
 
 class TestLeadService(unittest.TestCase):
+    """Test lead validation and normalization."""
 
     def test_valid_lead(self):
         lead = {
-            "name": "John Smith",
+            "name": "John Doe",
             "email": "john@example.com",
         }
 
@@ -32,9 +33,20 @@ class TestLeadService(unittest.TestCase):
         self.assertFalse(valid)
         self.assertEqual(message, "Name is required")
 
+    def test_missing_email(self):
+        lead = {
+            "name": "John Doe",
+            "email": "",
+        }
+
+        valid, message = LeadService.validate_lead(lead)
+
+        self.assertFalse(valid)
+        self.assertEqual(message, "Email is required")
+
     def test_invalid_email(self):
         lead = {
-            "name": "John Smith",
+            "name": "John Doe",
             "email": "invalid-email",
         }
 
@@ -46,9 +58,9 @@ class TestLeadService(unittest.TestCase):
     def test_normalize_email(self):
         email = "  JOHN@EXAMPLE.COM  "
 
-        result = LeadService.normalize_email(email)
+        normalized = LeadService.normalize_email(email)
 
-        self.assertEqual(result, "john@example.com")
+        self.assertEqual(normalized, "john@example.com")
 
 
 if __name__ == "__main__":
