@@ -7,7 +7,7 @@
 
 Ascendor Lead-to-Revenue Automation Engine is a business automation platform designed to help businesses improve lead management, automate repetitive sales processes, and reduce missed opportunities.
 
-The project is being developed using n8n, PostgreSQL, Docker, and cloud infrastructure.
+The system is being developed using n8n, PostgreSQL, Docker, Python, and cloud infrastructure.
 
 ## Business Problem
 
@@ -68,11 +68,12 @@ Businesses frequently lose valuable opportunities because of:
 - Project foundation
 - System architecture
 - Database design
-- Lead intake webhook
+- Lead intake API
 - Lead validation
 - PostgreSQL integration
 - Basic error handling
 - Testing and documentation
+- Runtime verification
 
 ### Phase 2 — Starter Version
 
@@ -111,12 +112,15 @@ Businesses frequently lose valuable opportunities because of:
 
 ## Project Status
 
-- **Current Stage:** Project Foundation
-- **Development Status:** Planning and documentation
+- **Current Stage:** MVP Development
+- **Development Status:** Application foundation and supporting documentation prepared
+- **Runtime Verification:** Pending development environment execution
+- **Deployment Status:** Not yet deployed
+- **Production Status:** Not production-ready
 
 ## Disclaimer
 
-This project is under active development. Planned features are not necessarily implemented or production-ready.
+This project is under active development. Planned features are not necessarily implemented, tested, deployed, or production-ready.
 
 ---
 
