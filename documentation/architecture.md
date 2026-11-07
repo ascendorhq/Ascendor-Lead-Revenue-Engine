@@ -5,99 +5,193 @@
 
 Ascendor is designed as a modular lead management and business automation system.
 
-The initial MVP will establish a reliable lead intake and storage process using n8n and PostgreSQL.
+The initial MVP establishes a reliable lead intake, validation, and storage process using Python Flask, PostgreSQL, Docker, and n8n.
+
+The architecture separates API processing, database operations, and workflow automation to support maintainability and future expansion.
 
 ## 2. MVP Architecture
+
+### Current Application Architecture
 
 ```text
 Lead Source
     |
     v
-HTTP Request
+HTTP POST Request
     |
     v
-n8n Webhook
+Ascendor Flask API
     |
     v
 Input Validation
     |
     v
-Duplicate Detection
+Email Normalization
+    |
+    v
+Lead Repository
     |
     v
 PostgreSQL Database
     |
     v
-Webhook Response
-    |
-    v
-Execution Logging
+API Response
+```
+
+### Development Environment Architecture
+
+```text
+Docker Environment
+|
+|-- Ascendor Flask API
+|   |-- Application Entry Point
+|   |-- API Routes
+|   |-- Lead Processing Service
+|   |-- Lead Repository
+|   |-- Database Connection
+|
+|-- PostgreSQL
+|   |-- Lead Records
+|   |-- Lead Activities
+|   |-- Follow-ups
+|
+|-- n8n
+    |-- Workflow Automation Platform
+    |-- Future Lead Automation Workflows
 ```
 
 ## 3. Components
 
 ### Lead Source
 
-A website form or test client submits lead information.
+A website form, external application, or test client submits lead information through an HTTP request.
 
-### n8n Webhook
+### Ascendor Flask API
 
-Receives incoming HTTP requests and starts the workflow.
+The Flask API receives incoming requests and exposes endpoints for lead management.
 
-### Input Validation
+Current endpoint:
 
-Checks required fields, data formats, and invalid submissions.
+- `GET /health` — API health check
+- `POST /api/v1/leads` — Lead creation endpoint
 
-### Duplicate Detection
+### Lead Processing Service
 
-Identifies repeated submissions using defined matching rules.
+The lead processing service validates incoming lead information and normalizes email addresses before database operations.
+
+Responsibilities include:
+
+- Required field validation
+- Email format validation
+- Optional field validation
+- Input length restrictions
+- Email normalization
+
+### Lead Repository
+
+The repository manages database operations for lead records.
+
+Responsibilities include:
+
+- Creating lead records
+- Executing database queries
+- Returning stored lead information
+- Managing database connections
 
 ### PostgreSQL
 
-Stores validated lead records for persistent data management.
+PostgreSQL provides persistent storage for Ascendor.
 
-### Webhook Response
+Current database structures include:
 
-Returns an appropriate response to the submitting client.
+- Leads
+- Lead activities
+- Lead follow-ups
 
-### Execution Logging
+Database constraints enforce data integrity, including email uniqueness, lead score limits, and revenue validation.
 
-Records workflow execution information and errors for troubleshooting.
+### n8n
 
-## 4. Data Flow
+n8n serves as the workflow automation platform.
 
-1. A client submits lead information.
-2. The webhook receives the request.
-3. The workflow validates the submitted data.
-4. Duplicate detection checks existing records.
-5. Valid leads are stored in PostgreSQL.
-6. The workflow returns a response.
-7. Execution information is available for troubleshooting.
+Future workflows will integrate lead processing with external business applications and automated sales processes.
 
-## 5. Error Handling
+### Docker
 
-The MVP should account for:
+Docker provides a containerized development environment for the application, database, and automation platform.
 
+Docker Compose manages service configuration, networking, and persistent storage.
+
+## 4. Lead Processing Data Flow
+
+1. A client submits lead information to the Ascendor API.
+2. Flask receives the HTTP request.
+3. The API validates the JSON request body.
+4. The lead processing service validates required and optional fields.
+5. The email address is normalized.
+6. The lead repository executes the database insertion.
+7. PostgreSQL enforces database constraints and stores the lead.
+8. The API returns an appropriate HTTP response.
+9. Errors are handled and logged when database operations fail.
+
+## 5. API Error Handling
+
+The API should handle:
+
+- Invalid JSON requests
 - Missing required fields
-- Invalid data formats
-- Duplicate submissions
+- Invalid email formats
+- Invalid optional field values
+- Duplicate email submissions
 - Database connection failures
 - Database constraint violations
-- Workflow execution failures
+- Unexpected application errors
 
-Errors should be handled without silently losing valid lead submissions.
+Expected errors should return appropriate HTTP status codes and meaningful responses.
+
+Unexpected database errors should be logged without exposing sensitive database information to clients.
 
 ## 6. Data Persistence
 
-PostgreSQL will serve as the persistent source of truth for lead records.
+PostgreSQL serves as the persistent source of truth for lead records.
 
-Lead data should not depend exclusively on temporary workflow execution history.
+Lead information must not depend exclusively on temporary API requests or workflow execution history.
 
-## 7. Future Architecture Extensions
+The database schema includes:
+
+- UUID-based lead identification
+- Email normalization
+- Duplicate email prevention
+- Lead status and qualification fields
+- Lead scoring fields
+- Revenue tracking fields
+- Automatic timestamps
+- Activity history
+- Follow-up records
+
+## 7. Security and Reliability
+
+The system is designed around the following security and reliability principles:
+
+- Environment-based configuration
+- Separation of application and database responsibilities
+- Restricted database exposure during development
+- Persistent database volumes
+- Input validation
+- Database constraints
+- Error logging
+- Secure secret management
+- Incremental testing and verification
+
+Production deployment will require additional security controls, monitoring, backups, and operational hardening.
+
+## 8. Future Architecture Extensions
 
 Future versions may introduce:
 
+- n8n lead intake workflows
 - AI qualification services
+- Automated lead scoring
 - CRM integrations
 - Email automation
 - Appointment scheduling
@@ -106,24 +200,34 @@ Future versions may introduce:
 - Monitoring and alerting
 - Cloud deployment
 - Queue-based processing
+- Infrastructure automation
 
-These components are outside the initial MVP implementation scope.
+These components will be implemented incrementally and are not yet part of the verified MVP functionality.
 
-## 8. Architecture Principles
+## 9. Architecture Principles
 
-- Modular workflow design
+- Modular application design
 - Reliable data persistence
-- Secure communication
+- Separation of responsibilities
+- Secure configuration
 - Explicit error handling
 - Maintainable components
 - Incremental implementation
 - Documented system behavior
+- Testing before deployment
 
-## 9. Current Status
+## 10. Current Status
 
-Architecture documentation is being established.
+- **Architecture:** Documented
+- **Application Foundation:** Prepared
+- **Database Schema:** Prepared
+- **Docker Configuration:** Prepared
+- **Runtime Verification:** Pending
+- **Automation Workflows:** Not yet implemented
+- **Cloud Deployment:** Not yet implemented
+- **Production Readiness:** Not yet achieved
 
-The architecture describes the intended MVP design and does not represent an already deployed system.
+This document describes the intended MVP architecture and prepared application components. It does not represent an already deployed or production-verified system.
 
 ---
 
