@@ -3,9 +3,12 @@
 
 ## 1. Purpose
 
-This document defines the security principles, development safeguards, and planned security controls for Ascendor.
+This document defines the security principles, development safeguards,
+and planned security controls for Ascendor.
 
-The objective is to protect sensitive business information, maintain data integrity, and establish secure practices throughout development and deployment.
+The objective is to protect sensitive business information,
+maintain data integrity, and establish secure practices
+throughout development and deployment.
 
 ## 2. Security Objectives
 
@@ -41,8 +44,15 @@ The objective is to protect sensitive business information, maintain data integr
 - PostgreSQL is bound to localhost.
 - Database credentials are supplied through environment variables.
 - Persistent database storage is managed through Docker volumes.
+- The application and n8n currently share database credentials
+  in the local development environment.
 
-These settings are intended for local development and are not a complete production security configuration.
+These settings are intended for local development
+and are not a complete production security configuration.
+
+Before production deployment, Ascendor should implement
+separate database users and appropriate database privileges
+for application services.
 
 ## 5. Application Security
 
@@ -56,6 +66,18 @@ These settings are intended for local development and are not a complete product
 - Protect API endpoints against unauthorized submissions.
 - Use HTTPS for production endpoints.
 
+### Current API Security Limitations
+
+The initial MVP API does not yet implement authentication,
+authorization, rate limiting, or abuse prevention.
+
+The API is intended for controlled local development
+and must not be exposed as an unrestricted public endpoint.
+
+Before public deployment, appropriate API protection,
+request restrictions, and abuse prevention controls
+must be implemented and verified.
+
 ### Planned Application Security Controls
 
 - API authentication and authorization where appropriate.
@@ -64,6 +86,7 @@ These settings are intended for local development and are not a complete product
 - Request size restrictions.
 - Additional security testing.
 - Improved monitoring and alerting.
+- Consistent exclusion of sensitive information from logs.
 
 ## 6. Data Privacy
 
@@ -97,7 +120,8 @@ These settings are intended for local development and are not a complete product
 
 ## 9. Production Security Requirements
 
-Before production deployment, Ascendor must implement and verify appropriate controls for:
+Before production deployment, Ascendor must implement
+and verify appropriate controls for:
 
 - HTTPS and secure transport
 - Authentication and authorization
@@ -110,6 +134,8 @@ Before production deployment, Ascendor must implement and verify appropriate con
 - Dependency security
 - Data privacy and retention
 - Incident response procedures
+- Secure application logging
+- Database user separation and least privilege
 
 ## 10. Current Security Status
 
@@ -119,10 +145,16 @@ Before production deployment, Ascendor must implement and verify appropriate con
 - **Input Validation:** Implemented in application code
 - **Database Constraints:** Defined in schema
 - **Local Development Exposure:** Restricted to localhost
+- **API Authentication:** Not yet implemented
+- **Rate Limiting:** Not yet implemented
 - **Security Testing:** Pending execution
 - **Production Security:** Not yet implemented or verified
 
-This document describes the current security foundation and planned controls. It does not represent a completed security audit or production security certification.
+This document describes the current security foundation
+and planned controls.
+
+It does not represent a completed security audit,
+penetration test, or production security certification.
 
 ---
 
