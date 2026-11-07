@@ -18,14 +18,14 @@ class LeadRepository:
 
         sql = """
             INSERT INTO leads (
-                name,
+                full_name,
                 email,
                 phone,
-                company,
+                company_name,
                 source
             )
             VALUES (%s, %s, %s, %s, %s)
-            RETURNING id, name, email, created_at;
+            RETURNING id, full_name, email, created_at;
         """
 
         conn = get_connection()
@@ -40,7 +40,7 @@ class LeadRepository:
                             lead_data["email"],
                             lead_data.get("phone"),
                             lead_data.get("company"),
-                            lead_data.get("source"),
+                            lead_data.get("source") or "webhook",
                         ),
                     )
 
