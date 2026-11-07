@@ -6,13 +6,16 @@
 - **Project Name:** Ascendor — AI Lead-to-Revenue Automation Engine
 - **Organization:** Ascendor
 - **Project Type:** Business Automation Platform
-- **Development Stage:** MVP Planning and Foundation
+- **Development Stage:** MVP Development and Foundation
 
 ## 2. Purpose
 
-Ascendor is designed to help businesses automate their lead management and sales follow-up processes.
+Ascendor is designed to help businesses automate their lead management
+and sales follow-up processes.
 
-The system aims to reduce manual administrative work, improve lead organization, and help businesses respond to potential customers more consistently.
+The system aims to reduce manual administrative work,
+improve lead organization, and help businesses respond
+to potential customers more consistently.
 
 ## 3. Problem Statement
 
@@ -25,7 +28,8 @@ Businesses may experience operational problems such as:
 - Manual lead qualification
 - Disorganized sales pipelines
 
-These problems can reduce operational efficiency and cause valuable opportunities to be missed.
+These problems can reduce operational efficiency
+and cause valuable opportunities to be missed.
 
 ## 4. Proposed Solution
 
@@ -40,7 +44,10 @@ Ascendor will develop an automation system that:
 7. Automates follow-up processes.
 8. Notifies sales personnel.
 9. Tracks workflow execution and errors.
-10. Provides reporting capabilities.
+10. Provides reporting and analytics capabilities.
+
+These capabilities will be introduced incrementally
+as the platform evolves.
 
 ## 5. Initial MVP Scope
 
@@ -48,17 +55,38 @@ The initial MVP will focus on one reliable business process:
 
 **Lead Submission → Validation → Database Storage → Response → Logging**
 
-The MVP will establish the technical foundation before advanced AI, CRM, and reporting features are introduced.
+The MVP foundation includes:
 
-## 6. Technology Direction
+- Flask HTTP API
+- Lead validation and email normalization
+- Duplicate email detection
+- PostgreSQL persistence
+- API response handling
+- Application logging
+- Automated test files
 
-- n8n for workflow automation
+Advanced AI, CRM integration, automated follow-ups,
+and reporting capabilities will be introduced in later stages.
+
+## 6. Technology Stack
+
+### Current Development Stack
+
+- Python for application programming
+- Flask for HTTP API development
+- Psycopg for PostgreSQL connectivity
 - PostgreSQL for persistent data storage
 - Docker for containerization
+- Docker Compose for local service orchestration
 - Git and GitHub for version control
+
+### Planned Automation and Infrastructure Stack
+
+- n8n for workflow automation
 - Linux for server administration
-- Python for programming foundations
-- Cloud infrastructure for future deployment
+- Cloud infrastructure for deployment
+- Infrastructure as Code for reproducible environments
+- Monitoring and observability tools for operational visibility
 
 ## 7. Engineering Priorities
 
@@ -75,16 +103,42 @@ The MVP will establish the technical foundation before advanced AI, CRM, and rep
 
 Ascendor will be developed incrementally.
 
-Each milestone should introduce a measurable capability, supported by documentation and testing.
+Each milestone should introduce a measurable capability,
+supported by documentation and testing.
 
-The system will prioritize reliable foundations before advanced functionality.
+The system will prioritize reliable foundations
+before advanced functionality.
+
+Implementation, testing, validation, and deployment
+will be treated as separate engineering milestones.
 
 ## 9. Current Status
 
 - Repository established
 - README documented
-- Engineering documentation in progress
-- MVP implementation has not yet begun
+- Engineering documentation prepared and under review
+- Application foundation prepared
+- PostgreSQL schema prepared
+- Docker development environment configured
+- Automated test files prepared
+- Runtime verification pending
+- Cloud deployment not yet completed
+- Production readiness not yet achieved
+
+## 10. Future Direction
+
+Future development may include:
+
+- AI-powered lead qualification
+- Advanced lead scoring
+- CRM integrations
+- Automated sales follow-ups
+- Appointment scheduling
+- Revenue tracking
+- Sales pipeline dashboards
+- Monitoring and alerting
+- Cloud deployment
+- Multi-tenant architecture
 
 ---
 
