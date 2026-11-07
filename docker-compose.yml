@@ -1,102 +1,116 @@
-============================================================
 
-ASCENDOR LEAD-TO-REVENUE ENGINE
-
-MVP DEVELOPMENT ENVIRONMENT
-
-============================================================
+# ============================================================
+# ASCENDOR LEAD-TO-REVENUE ENGINE
+# MVP DEVELOPMENT ENVIRONMENT
+# ============================================================
 
 services:
 
-----------------------------------------------------------
+  # ----------------------------------------------------------
+  # PostgreSQL Database
+  # ----------------------------------------------------------
 
-PostgreSQL Database
-
-----------------------------------------------------------
-
-postgres:
-image: postgres:17
-container_name: ascendor-postgres
-restart: unless-stopped
-
-environment:
-  POSTGRES_DB: ascendor
-  POSTGRES_USER: ascendor
-  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
-
-ports:
-  - "127.0.0.1:5432:5432"
-
-volumes:
-  - postgres_data:/var/lib/postgresql/data
-  - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
-
-healthcheck:
-  test: ["CMD-SHELL", "pg_isready -U ascendor -d ascendor"]
-  interval: 10s
-  timeout: 5s
-  retries: 5
-
-networks:
-  - ascendor-network
-
-----------------------------------------------------------
-
-n8n Automation Platform
-
-----------------------------------------------------------
-
-n8n:
-image: docker.n8n.io/n8nio/n8n:latest
-container_name: ascendor-n8n
-restart: unless-stopped
-
-ports:
-  - "127.0.0.1:5678:5678"
-
-environment:
-  DB_TYPE: postgresdb
-  DB_POSTGRESDB_HOST: postgres
-  DB_POSTGRESDB_PORT: 5432
-  DB_POSTGRESDB_DATABASE: ascendor
-  DB_POSTGRESDB_USER: ascendor
-  DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
-
-  N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY:?Set N8N_ENCRYPTION_KEY in .env}
-
-  N8N_HOST: localhost
-  N8N_PORT: 5678
-  N8N_PROTOCOL: http
-  N8N_SECURE_COOKIE: "false"
-  GENERIC_TIMEZONE: Asia/Manila
-  TZ: Asia/Manila
-
-volumes:
-  - n8n_data:/home/node/.n8n
-
-depends_on:
   postgres:
-    condition: service_healthy
+    image: postgres:17
+    container_name: ascendor-postgres
+    restart: unless-stopped
 
-networks:
-  - ascendor-network
+    environment:
+      POSTGRES_DB: ascendor
+      POSTGRES_USER: ascendor
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
 
-------------------------------------------------------------
+    ports:
+      - "127.0.0.1:5432:5432"
 
-Persistent Storage
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
 
-------------------------------------------------------------
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ascendor -d ascendor"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - ascendor-network
+
+  # ----------------------------------------------------------
+  # Ascendor Flask API
+  # ----------------------------------------------------------
+
+  api:
+    build: .
+    container_name: ascendor-api
+    restart: unless-stopped
+
+    ports:
+      - "127.0.0.1:5000:5000"
+
+    environment:
+      APP_ENV: development
+      DEBUG: "false"
+      DATABASE_URL: postgresql://ascendor:${POSTGRES_PASSWORD}@postgres:5432/ascendor
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    networks:
+      - ascendor-network
+
+  # ----------------------------------------------------------
+  # n8n Automation Platform
+  # ----------------------------------------------------------
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    container_name: ascendor-n8n
+    restart: unless-stopped
+
+    ports:
+      - "127.0.0.1:5678:5678"
+
+    environment:
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: ascendor
+      DB_POSTGRESDB_USER: ascendor
+      DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY:?Set N8N_ENCRYPTION_KEY in .env}
+
+      N8N_HOST: localhost
+      N8N_PORT: 5678
+      N8N_PROTOCOL: http
+      N8N_SECURE_COOKIE: "false"
+      GENERIC_TIMEZONE: Asia/Manila
+      TZ: Asia/Manila
+
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    networks:
+      - ascendor-network
+
+# ------------------------------------------------------------
+# Persistent Storage
+# ------------------------------------------------------------
 
 volumes:
-postgres_data:
-n8n_data:
+  postgres_data:
+  n8n_data:
 
-------------------------------------------------------------
-
-Internal Network
-
-------------------------------------------------------------
+# ------------------------------------------------------------
+# Internal Network
+# ------------------------------------------------------------
 
 networks:
-ascendor-network:
-driver: bridge
+  ascendor-network:
+    driver: bridge
