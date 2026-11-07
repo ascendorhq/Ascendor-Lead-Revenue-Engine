@@ -1,5 +1,4 @@
 
-
 """
 Ascendor application configuration.
 """
@@ -14,7 +13,7 @@ class Config:
 
     APP_ENV = os.getenv("APP_ENV", "development")
 
-    DEBUG = APP_ENV == "development"
+    DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 
     TIMEZONE = "Asia/Manila"
 
