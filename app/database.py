@@ -1,19 +1,18 @@
 
-
 """
 Ascendor PostgreSQL database connection module.
 """
 
-import os
-
 import psycopg
 from psycopg.rows import dict_row
+
+from app.config import Config
 
 
 def get_connection():
     """Create and return a PostgreSQL database connection."""
 
-    database_url = os.getenv("DATABASE_URL")
+    database_url = Config.DATABASE_URL
 
     if not database_url:
         raise RuntimeError(
