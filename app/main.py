@@ -4,12 +4,17 @@ Ascendor application entry point.
 """
 
 from flask import Flask
+
+from app.config import Config
 from app.routes import api
 
 
 def create_app():
     """Create and configure the Flask application."""
+
     app = Flask(__name__)
+
+    app.config.from_object(Config)
 
     app.register_blueprint(api)
 
@@ -18,8 +23,9 @@ def create_app():
 
 if __name__ == "__main__":
     application = create_app()
+
     application.run(
-        host="127.0.0.1",
+        host="0.0.0.0",
         port=5000,
-        debug=True,
+        debug=application.config["DEBUG"],
     )
