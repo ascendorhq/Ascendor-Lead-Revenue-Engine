@@ -9,6 +9,7 @@ from flask import Blueprint, request
 from psycopg import Error as PsycopgError
 from psycopg.errors import UniqueViolation
 
+from app import __version__
 from app.services.lead_service import LeadService
 from app.repositories.lead_repository import LeadRepository
 
@@ -25,7 +26,7 @@ def health_check():
     return {
         "service": "Ascendor Lead-to-Revenue Engine",
         "status": "healthy",
-        "version": "0.1.0",
+        "version": __version__,
     }, 200
 
 
@@ -61,7 +62,7 @@ def create_lead():
             "message": "Lead created successfully",
             "lead": {
                 "id": str(lead["id"]),
-                "name": lead["name"],
+                "full_name": lead["full_name"],
                 "email": lead["email"],
                 "created_at": lead["created_at"].isoformat(),
             },
@@ -73,7 +74,7 @@ def create_lead():
             "message": "A lead with this email already exists",
         }, 409
 
-    except PsycopgError:
+    except (PsycopgError, RuntimeError):
         logger.exception("Database error while creating lead")
 
         return {
