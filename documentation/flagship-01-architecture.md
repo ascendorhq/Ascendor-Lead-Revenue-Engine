@@ -1,11 +1,11 @@
-Ascendor Flagship 01 — System Architecture
 
-1. Project Overview
+# Ascendor Flagship 01 — System Architecture
 
-Attribute| Description
-Project Name| Ascendor AI Lead Generation & Revenue Engine
-Project Type| Multi-Tenant Business Automation Platform
-Architecture Goal| SaaS-Ready System Architecture
+## 1. Project Overview
+
+- **Project Name:** Ascendor AI Lead Generation & Revenue Engine
+- **Project Type:** Multi-Tenant Business Automation Platform
+- **Architecture Goal:** SaaS-Ready System Architecture
 
 Ascendor AI Lead Generation & Revenue Engine is a business automation platform designed to help companies capture, qualify, organize, follow up with, and convert leads into revenue opportunities.
 
@@ -15,15 +15,15 @@ The architecture is designed to support an initial implementation for individual
 
 ---
 
-2. Architecture Quality Requirements
+## 2. Architecture Quality Requirements
 
 All architectural decisions must satisfy the following four quality requirements.
 
-2.1 Reliability
+### 2.1 Reliability
 
 The system must operate predictably, protect business data, and recover from operational failures.
 
-Requirements:
+**Requirements:**
 
 - Validate incoming data before processing.
 - Prevent duplicate lead creation.
@@ -34,11 +34,11 @@ Requirements:
 - Monitor system health and workflow failures.
 - Implement automated testing for critical functionality.
 
-2.2 Scalability
+### 2.2 Scalability
 
 The system must support increasing clients, leads, workflows, and integrations without requiring a complete architectural redesign.
 
-Requirements:
+**Requirements:**
 
 - Support multi-tenant organizations.
 - Separate business logic into modular workflows.
@@ -48,11 +48,11 @@ Requirements:
 - Allow infrastructure expansion when necessary.
 - Support future integration of all six Ascendor flagship ecosystems.
 
-2.3 Premium / Aesthetic
+### 2.3 Premium / Aesthetic
 
 The platform must provide a polished, professional, and consistent user experience.
 
-Requirements:
+**Requirements:**
 
 - Maintain a consistent visual identity.
 - Use clean layouts and organized information hierarchy.
@@ -62,11 +62,11 @@ Requirements:
 - Maintain consistency across dashboard modules.
 - Deliver a polished experience across important user interactions.
 
-2.4 Simple / Usable
+### 2.4 Simple / Usable
 
 The platform must remain intuitive and easy to use despite its sophisticated internal architecture.
 
-Requirements:
+**Requirements:**
 
 - Provide intuitive navigation.
 - Use understandable labels and actions.
@@ -77,33 +77,35 @@ Requirements:
 - Hide unnecessary technical complexity from business users.
 - Enable nontechnical business owners to operate the platform confidently.
 
-Architecture Philosophy
+### Architecture Philosophy
 
-«Powerful underneath. Simple on the surface. Premium in every interaction.»
+> Powerful underneath. Simple on the surface. Premium in every interaction.
 
 ---
 
-3. System Architecture
+## 3. System Architecture
 
-3.1 Architectural Components
+### 3.1 Architectural Components
 
 The system consists of the following primary components.
 
-Component| Technology| Responsibility
-Client Dashboard| Next.js| User interface and business operations
-Frontend Language| TypeScript| Type-safe frontend development
-Styling| Tailwind CSS| Consistent design system
-Database| Supabase PostgreSQL| Persistent business data
-Authentication| Supabase Auth| User authentication
-Authorization| Supabase Row Level Security (RLS)| Tenant-level data access control
-Automation Engine| n8n| Workflow execution and orchestration
-AI Services| LLM APIs| Lead qualification and business intelligence
-Cloud Infrastructure| AWS (Future)| Production hosting and infrastructure expansion
+| Component | Technology | Responsibility |
+|---|---|---|
+| Client Dashboard | Next.js | User interface and business operations |
+| Frontend Language | TypeScript | Type-safe frontend development |
+| Styling | Tailwind CSS | Consistent design system |
+| Database | Supabase PostgreSQL | Persistent business data |
+| Authentication | Supabase Auth | User authentication |
+| Authorization | Supabase RLS | Tenant-level data access control |
+| Automation Engine | n8n | Workflow execution and orchestration |
+| AI Services | LLM APIs | Lead qualification and business intelligence |
+| Cloud Infrastructure | AWS (Future) | Production hosting and infrastructure expansion |
 
 Python FastAPI may be introduced for specialized backend services when required. It is not mandatory for the initial architecture.
 
-3.2 Architecture Diagram
+### 3.2 Architecture Diagram
 
+```mermaid
 flowchart TD
     A[Business Users] --> B[Ascendor Dashboard]
     B --> C[Next.js + TypeScript]
@@ -124,9 +126,9 @@ flowchart TD
 
     H --> G
     G --> C
-    C --> B
+```
 
-Architecture Requirements:
+**Architecture Requirements:**
 
 - Authentication and authorization must be enforced before users access organization-specific information.
 - Privileged automation credentials must remain server-side.
@@ -135,13 +137,13 @@ Architecture Requirements:
 
 ---
 
-4. Component Responsibilities
+## 4. Component Responsibilities
 
-4.1 Next.js Dashboard
+### 4.1 Next.js Dashboard
 
 The dashboard provides the primary user interface for Ascendor.
 
-Responsibilities:
+**Responsibilities:**
 
 - Display leads and lead details.
 - Display qualification results and lead scores.
@@ -154,11 +156,11 @@ Responsibilities:
 
 The dashboard must prioritize usability over technical complexity.
 
-4.2 Supabase
+### 4.2 Supabase
 
 Supabase provides the core data and authentication infrastructure.
 
-Responsibilities:
+**Responsibilities:**
 
 - Store organizations and organization memberships.
 - Store leads and business records.
@@ -170,11 +172,11 @@ Responsibilities:
 
 Row Level Security policies must be designed and tested before production deployment.
 
-4.3 n8n Automation Engine
+### 4.3 n8n Automation Engine
 
 n8n executes Ascendor's business automation processes.
 
-Responsibilities:
+**Responsibilities:**
 
 - Receive lead intake events.
 - Execute AI qualification workflows.
@@ -188,11 +190,11 @@ Responsibilities:
 
 Workflows must be modular, reusable, and maintainable.
 
-4.4 AI Services
+### 4.4 AI Services
 
 AI services provide intelligence for selected business processes.
 
-Responsibilities:
+**Responsibilities:**
 
 - Analyze lead information.
 - Assist in lead qualification.
@@ -203,11 +205,11 @@ Responsibilities:
 
 AI outputs must be validated before they modify important business records or trigger sensitive external actions.
 
-4.5 Cloud Infrastructure
+### 4.5 Cloud Infrastructure
 
 Cloud infrastructure will support production deployment and future scaling.
 
-Responsibilities:
+**Responsibilities:**
 
 - Host application services.
 - Host or support automation infrastructure.
@@ -220,11 +222,11 @@ AWS is a future deployment target, not a requirement for the initial documentati
 
 ---
 
-5. Six Core Business Processes
+## 5. Six Core Business Processes
 
 The architecture supports six core business processes.
 
-Process 01 — Lead Capture
+### Process 01 — Lead Capture
 
 Capture leads from supported sources, including:
 
@@ -233,7 +235,7 @@ Capture leads from supported sources, including:
 - Incoming business inquiries.
 - Future external lead sources.
 
-Process 02 — AI Lead Qualification
+### Process 02 — AI Lead Qualification
 
 Analyze incoming leads using:
 
@@ -245,7 +247,7 @@ Analyze incoming leads using:
 
 Produce structured qualification results.
 
-Process 03 — CRM & Lead Scoring
+### Process 03 — CRM & Lead Scoring
 
 Organize leads and prioritize opportunities using:
 
@@ -256,7 +258,7 @@ Organize leads and prioritize opportunities using:
 - Assignment and ownership.
 - Activity history.
 
-Process 04 — Automated Follow-Up
+### Process 04 — Automated Follow-Up
 
 Coordinate follow-up activities through:
 
@@ -266,7 +268,7 @@ Coordinate follow-up activities through:
 - Follow-up scheduling.
 - Activity tracking.
 
-Process 05 — Appointment & Sales Handoff
+### Process 05 — Appointment & Sales Handoff
 
 Support sales execution through:
 
@@ -276,7 +278,7 @@ Support sales execution through:
 - Sales team handoff.
 - Appointment activity tracking.
 
-Process 06 — Revenue Intelligence
+### Process 06 — Revenue Intelligence
 
 Provide business visibility through:
 
@@ -288,10 +290,11 @@ Provide business visibility through:
 
 ---
 
-6. Data Flow
+## 6. Data Flow
 
 The primary business data flow is:
 
+```mermaid
 flowchart TD
     A[Lead Source] --> B[Lead Intake]
     B --> C[Input Validation]
@@ -304,8 +307,9 @@ flowchart TD
     I --> J[Appointment / Sales Handoff]
     J --> K[Revenue Intelligence]
     K --> L[Client Dashboard]
+```
 
-Data Integrity Requirements:
+**Data Integrity Requirements:**
 
 - Preserve lead identity throughout the business process.
 - Maintain organization ownership of business records.
@@ -316,11 +320,11 @@ Data Integrity Requirements:
 
 ---
 
-7. Multi-Tenant Architecture
+## 7. Multi-Tenant Architecture
 
 Ascendor is designed to support multiple organizations within a shared platform.
 
-7.1 Tenant Model
+### 7.1 Tenant Model
 
 Each business customer is represented by an organization.
 
@@ -328,11 +332,11 @@ Users may belong to one or more organizations through organization membership re
 
 Business records must be associated with the organization that owns them.
 
-7.2 Tenant Isolation
+### 7.2 Tenant Isolation
 
 The system must prevent one organization from accessing another organization's data.
 
-Requirements:
+**Requirements:**
 
 - Organization ownership must be represented explicitly.
 - Organization membership must be verified.
@@ -342,7 +346,7 @@ Requirements:
 - External integrations must use the correct organization's credentials.
 - Cross-tenant access must be tested.
 
-7.3 Tenant-Aware Automation
+### 7.3 Tenant-Aware Automation
 
 Automation workflows must identify the organization associated with every business event.
 
@@ -352,11 +356,11 @@ Privileged automation access must be restricted and carefully controlled.
 
 ---
 
-8. Security Architecture
+## 8. Security Architecture
 
 Security must be incorporated into the architecture from the beginning.
 
-Requirements:
+**Requirements:**
 
 - Authenticate users before granting protected access.
 - Enforce authorization separately from authentication.
@@ -374,11 +378,11 @@ Production security must be validated before client deployment.
 
 ---
 
-9. Reliability and Failure Handling
+## 9. Reliability and Failure Handling
 
 The system must be designed to handle operational failures.
 
-Requirements:
+**Requirements:**
 
 - Validate incoming events.
 - Apply duplicate detection and idempotency where necessary.
@@ -394,11 +398,11 @@ Retries must be designed carefully for external actions such as sending emails o
 
 ---
 
-10. Scalability Strategy
+## 10. Scalability Strategy
 
 The system will scale progressively.
 
-Stage 1 — Development
+### Stage 1 — Development
 
 - Local development environment.
 - Core database design.
@@ -406,7 +410,7 @@ Stage 1 — Development
 - Basic dashboard.
 - Testing with sample data.
 
-Stage 2 — Client Implementation
+### Stage 2 — Client Implementation
 
 - Configure organization-specific business processes.
 - Connect supported external integrations.
@@ -414,7 +418,7 @@ Stage 2 — Client Implementation
 - Validate business workflows.
 - Deploy for initial client usage.
 
-Stage 3 — Managed Infrastructure
+### Stage 3 — Managed Infrastructure
 
 - Centralized deployment management.
 - Monitoring and operational support.
@@ -422,7 +426,7 @@ Stage 3 — Managed Infrastructure
 - Secure tenant management.
 - Infrastructure optimization.
 
-Stage 4 — SaaS Expansion
+### Stage 4 — SaaS Expansion
 
 - Standardized onboarding.
 - Multi-tenant customer management.
@@ -435,11 +439,11 @@ Infrastructure must be expanded based on actual operational requirements rather 
 
 ---
 
-11. Future Ascendor Ecosystem Integration
+## 11. Future Ascendor Ecosystem Integration
 
 Flagship 01 must be designed to integrate into the broader Ascendor platform.
 
-Future Flagship Ecosystems
+### Future Flagship Ecosystems
 
 1. AI Lead Generation & Revenue Engine.
 2. AI Customer Support & Client Service Ecosystem.
@@ -448,7 +452,7 @@ Future Flagship Ecosystems
 5. Client Onboarding & Agency Operations Ecosystem.
 6. The sixth flagship ecosystem, as defined in Ascendor's master project portfolio.
 
-Shared Future Platform Capabilities
+### Shared Future Platform Capabilities
 
 - Organization management.
 - Authentication and authorization.
@@ -462,7 +466,7 @@ The six flagship ecosystems must remain distinct business capabilities while ope
 
 ---
 
-12. Architectural Principles
+## 12. Architectural Principles
 
 The following principles guide all future system design.
 
@@ -479,7 +483,7 @@ The following principles guide all future system design.
 
 ---
 
-13. Architecture Acceptance Criteria
+## 13. Architecture Acceptance Criteria
 
 The architecture is considered ready for detailed implementation planning when:
 
@@ -496,14 +500,14 @@ The architecture is considered ready for detailed implementation planning when:
 
 ---
 
-14. Architecture Philosophy
+## 14. Architecture Philosophy
 
 Ascendor builds sophisticated business automation systems that feel effortless to use.
 
-- Reliable in operation.
-- Scalable in architecture.
-- Premium in experience.
-- Simple in execution.
+- **Reliable in operation.**
+- **Scalable in architecture.**
+- **Premium in experience.**
+- **Simple in execution.**
 
 The objective is not merely to automate business processes.
 
